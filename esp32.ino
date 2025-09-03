@@ -5,23 +5,24 @@
 #include <WiFiClientSecure.h>
 #include <UniversalTelegramBot.h>
 
-// --- Configurazione Wi-Fi ---
-const char* ssid = "iPhone di Giorgia";
-const char* password = "giuliabroccolo";
+// Configurazione Telegram bot token e chat ID, che sono stati nascosti nei file caricati per motivi di sicurezza.
+const char* botToken = "TOKEN";
+const char* chatID   = "CHAT_ID";
 
-// --- Configurazione Telegram ---
-const char* botToken = "8229868092:AAGMNqGvgohFvM_43pFaHmv2ZYAw0XMz58Y";
-const char* chatID   = "6573132318";
+// Configurazione Wi-Fi anche essa nascosta nei file caricati per motivi di sicurezza.
+const char* ssid = "SSID";
+const char* password = "PASSWORD";
+
 
 WiFiClientSecure client;
 UniversalTelegramBot bot(botToken, client);
 
-// --- Configurazione OLED ---
+// Configurazione OLED
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
-// --- Configurazione HC-SR04 ---
+// Configurazione HC-SR04
 const int trigPin = 5;
 const int echoPin = 18;
 
@@ -65,7 +66,7 @@ void setup() {
 }
 
 void loop() {
-  // --- Lettura sensore HC-SR04 ---
+  // Lettura sensore HC-SR04
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
   digitalWrite(trigPin, HIGH);
@@ -73,11 +74,11 @@ void loop() {
   digitalWrite(trigPin, LOW);
 
   duration = pulseIn(echoPin, HIGH, 30000); // timeout 30ms
-  if(duration == 0) duration = 30000; // nessun oggetto rilevato
+  if(duration == 0) duration = 30000; // nessun eco ricevuto
 
   distanceCm = duration * 0.034 / 2;
 
-  // ---  velocità (cm/s) ---
+  // velocità (cm/s)
   unsigned long now = millis();
   if(timePrev > 0){
     float deltaT = (now - timePrev) / 1000.0; // secondi
@@ -86,14 +87,14 @@ void loop() {
   distancePrev = distanceCm;
   timePrev = now;
 
-  // --- Serial Monitor ---
+  // Serial Monitor
   Serial.print("Distanza: ");
   Serial.print(distanceCm);
   Serial.print(" cm  |  Velocità: ");
   Serial.print(velocity);
   Serial.println(" cm/s");
 
-  // --- Display OLED ---
+  // Display OLED
   display.clearDisplay();
   if (distanceCm < 40) {
     display.setCursor(0, 25);
@@ -105,8 +106,7 @@ void loop() {
     display.setTextSize(2);
     display.print(velocity, 2);
     display.print(" cm/s");
-
-    /*
+    // Invio messaggio Telegram
     String message = "Oggetto rilevato a " + String(distanceCm, 2) + " cm.\n";
     message += "Velocità: " + String(velocity, 2) + " cm/s";
     if (bot.sendMessage(chatID, message, "Markdown")) {
@@ -114,9 +114,8 @@ void loop() {
     } else {
       Serial.println("Errore invio Telegram!");
     }
-    */
 
-  } else {
+  } else { // Nessun oggetto rilevato
     display.setCursor(10, 25);
     display.setTextSize(2);
     display.println("Nessun");

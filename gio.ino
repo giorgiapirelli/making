@@ -2,6 +2,7 @@
 
 Servo radarServo;
 
+// Configurazione 
 const int trigPin = 11;
 const int echoPin = 10;
 const int servoPin = 12;
@@ -19,7 +20,7 @@ float lastDistance = 0;
 unsigned long lastServoUpdate = 0;
 
 void setup() {
-  radarServo.attach(servoPin);
+  radarServo.attach(servoPin); 
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
   pinMode(redLed, OUTPUT);
@@ -27,7 +28,7 @@ void setup() {
   pinMode(buzzer, OUTPUT);
 
   Serial.begin(9600);
-  setNormalState();
+  setNormalState(); // stato iniziale
 }
 
 void loop() {
@@ -63,7 +64,7 @@ void loop() {
   }
 }
 
-// misura distanza in cm
+// misurazione distanza in cm
 float getDistance() {
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
@@ -93,8 +94,8 @@ void setNormalState() {
 
 // buzzer passivo PWM
 void playTonePWM(int frequency, int duration) {
-  int period = 1000000 / frequency;
-  int pulse = period * 0.6;
+  int period = 1000000 / frequency; // periodo in microsecondi
+  int pulse = period * 0.6; // durata impulso, 60% del periodo
   long cycles = (long)frequency * duration / 1000;
   for (long i = 0; i < cycles; i++) {
     digitalWrite(buzzer, HIGH);
