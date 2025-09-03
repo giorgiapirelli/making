@@ -2,7 +2,7 @@
 
 Servo radarServo;
 
-// Configurazione 
+// Configurazione pin
 const int trigPin = 11;
 const int echoPin = 10;
 const int servoPin = 12;
@@ -28,7 +28,7 @@ void setup() {
   pinMode(buzzer, OUTPUT);
 
   Serial.begin(9600);
-  setNormalState(); // stato iniziale
+  setNormalState(); // stato iniziale, funzione riportata sotto
 }
 
 void loop() {
@@ -40,15 +40,15 @@ void loop() {
 
     // misura ogni 5°
     if (currentAngle % 5 == 0) {
-      float distance = getDistance();
+      float distance = getDistance(); // misura distanza, funzione riportata sotto
       float velocity = (distance - lastDistance) / (updateInterval / 1000.0);
       lastDistance = distance;
 
       // gestione LED e buzzer
       if (distance > 0 && distance < alertDistance) {
-        alertMode(); // accendi allarme
+        alertMode(); // accendi allarme, funzione riportata sotto
       } else {
-        setNormalState();
+        setNormalState(); // ripristina stato normale
       }
 
       // invio dati SEMPRE (anche se distance = 0)
@@ -73,6 +73,9 @@ float getDistance() {
   digitalWrite(trigPin, LOW);
 
   long duration = pulseIn(echoPin, HIGH, 30000); // timeout 30ms
+  // Calcola la distanza in centimetri
+  // Formula: distanza = (durata * velocità_suono) / 2
+  // Velocità suono ≈ 343 m/s = 0.034 cm/microsec
   float distance = duration * 0.034 / 2;
   if (distance > alertDistance) distance = 0; // fuori range = 0
   return distance;

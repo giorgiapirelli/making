@@ -137,7 +137,7 @@ void DrawRadarGreenLine() {
 }
 
 /*
- * DISEGNO DEGLI OGGETTI: Visualizza tutti i target rilevati
+ * Visualizza tutti i target rilevati
  * Implementa l'effetto fade (dissolvenza graduale)
  */
 void DrawObjects() {
