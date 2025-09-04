@@ -26,7 +26,7 @@ const int ECHO_PIN = 18;   // Pin echo del sensore
 long duration;             // Durata dell'impulso ultrasonico
 float distanceCm;          // Distanza corrente in centimetri
 float distancePrev = 0;    // Distanza precedente per calcolo velocità
-unsigned long timePrev = 0; 
+unsigned long timePrev = 0; // Tempo precedente
 float velocity = 0;        // Velocità calcolata in cm/s
 
 // Configurazioni di sistema
@@ -122,7 +122,7 @@ void connectToWiFi() {
 }
 
 
-void showStartupMessage() {
+void showStartupMessage() { // Messaggio di avvio sul display
   display.clearDisplay();
   display.setCursor(0, 0);
   display.setTextSize(1);
@@ -194,8 +194,8 @@ void calculateVelocity() {
 }
 
 
-void printSerialData() {
-  Serial.print("Distanza: ");
+void printSerialData() { // Stampa i dati sul monitor seriale
+  Serial.print("  Distanza: ");
   Serial.print(distanceCm, 1);
   Serial.print(" cm  |  Velocità: ");
   Serial.print(velocity, 2);

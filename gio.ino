@@ -96,7 +96,7 @@ void setNormalState() {
 }
 
 // buzzer passivo PWM
-void playTonePWM(int frequency, int duration) {
+void playTonePWM(int frequency, int duration) { // frequenza in Hz, durata in ms, in questo caso si ha 2000 hz e 50 ms 
   int period = 1000000 / frequency; // periodo in microsecondi
   int pulse = period * 0.6; // durata impulso, 60% del periodo
   long cycles = (long)frequency * duration / 1000;

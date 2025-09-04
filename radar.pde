@@ -44,7 +44,7 @@ void setup() {
 
 void draw() {
   // Crea effetto fade dello sfondo
-  fill(0, 10);             // Nero con alpha=10 (molto trasparente)
+  fill(0, 10);             
   noStroke();
   rect(0, 0, width, height);
   
@@ -136,11 +136,8 @@ void DrawRadarGreenLine() {
        radarRadius * sin(rad));
 }
 
-/*
- * Visualizza tutti i target rilevati
- * Implementa l'effetto fade (dissolvenza graduale)
- */
-void DrawObjects() {
+
+void DrawObjects() { // Disegna i punti rossi degli oggetti rilevati
   strokeWeight(8);            // Punti grandi per buona visibilità
   
   // Itera all'inverso per poter rimuovere elementi durante il loop
@@ -161,10 +158,8 @@ void DrawObjects() {
   }
 }
 
-/*
-  Mostra angolo e distanza correnti
- */
-void DrawText() {
+
+void DrawText() { // Disegna le informazioni testuali nella parte inferiore
   // Sfondo nero per il testo
   fill(0);
   noStroke();
@@ -187,8 +182,6 @@ void DrawText() {
   text("Angle: " + iAngle + "°", 280, height*0.96);
   text("Distance: " + distanceText, 480, height*0.96);
 }
-
-
 
 int StringToInt(String s){
   int value = 0;
