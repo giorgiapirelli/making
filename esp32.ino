@@ -5,7 +5,7 @@
 #include <WiFiClientSecure.h>
 #include <UniversalTelegramBot.h>
 
-// Include le credenziali dal file separato
+// Include le credenziali 
 #include "credentials.h"
 
 // Inizializzazione client Telegram
@@ -78,7 +78,7 @@ void connectToWiFi() {
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Connessione a Wi-Fi");
   
-  // Mostra stato sul display
+  // Mostra stato della connessione sul display
   display.clearDisplay();
   display.setCursor(0, 0);
   display.println("Connessione Wi-Fi...");
@@ -99,7 +99,7 @@ void connectToWiFi() {
     Serial.print("Indirizzo IP: ");
     Serial.println(WiFi.localIP());
     
-    // Conferma sul display
+    // Conferma connessione
     display.clearDisplay();
     display.setCursor(0, 0);
     display.println("Wi-Fi OK!");
@@ -112,7 +112,7 @@ void connectToWiFi() {
   } else {
     Serial.println("\nERRORE: Impossibile connettersi al Wi-Fi!");
     
-    // Errore sul display
+    // Errore connessione
     display.clearDisplay();
     display.setCursor(0, 25);
     display.println("ERRORE Wi-Fi!");
@@ -135,25 +135,23 @@ void showStartupMessage() { // Messaggio di avvio sul display
 
 
 void loop() {
-  // Effettua la misurazione della distanza
+  // Calcoliamo distanza
   measureDistance();
   
-  // Calcola la velocità dell'oggetto
+  // Calcoliamo velocità dell'oggetto
   calculateVelocity();
   
-  // Stampa i dati sul monitor seriale
+  // Stampa dei dati 
   printSerialData();
   
-  // Aggiorna il display OLED
+  // Aggiornamento il display OLED
   updateDisplay();
   
-  // Attende prima della prossima misurazione
   delay(LOOP_DELAY);
 }
 
 
-void measureDistance() {
-  // Genera impulso trigger (10 microsecondi)
+void measureDistance() { // funzione per misurare distanza 
   digitalWrite(TRIG_PIN, LOW);
   delayMicroseconds(2);
   digitalWrite(TRIG_PIN, HIGH);
@@ -168,14 +166,14 @@ void measureDistance() {
     duration = SENSOR_TIMEOUT;
   }
   
-  // Calcola la distanza in centimetri
+  // Calcoliamo la distanza in centimetri
   // Formula: distanza = (durata * velocità_suono) / 2
   // Velocità suono ≈ 343 m/s = 0.034 cm/microsec
   distanceCm = duration * 0.034 / 2;
 }
 
 
-void calculateVelocity() {
+void calculateVelocity() { //funzione per calcolare velocità
   unsigned long currentTime = millis();
   
   // Calcola la velocità solo se abbiamo una misurazione precedente
@@ -183,18 +181,18 @@ void calculateVelocity() {
     float deltaTime = (currentTime - timePrev) / 1000.0; // Converti in secondi
     
     // Velocità = variazione distanza / tempo trascorso
-    // Valore positivo = oggetto si avvicina
-    // Valore negativo = oggetto si allontana
+    // valore positivo = oggetto si avvicina
+    // valore negativo = oggetto si allontana
     velocity = (distancePrev - distanceCm) / deltaTime;
   }
   
-  // Aggiorna i valori per la prossima iterazione
+  // Aggiornamento valori per la prossima iterazione
   distancePrev = distanceCm;
   timePrev = currentTime;
 }
 
 
-void printSerialData() { // Stampa i dati sul monitor seriale
+void printSerialData() { // Stampa dei dati 
   Serial.print("  Distanza: ");
   Serial.print(distanceCm, 1);
   Serial.print(" cm  |  Velocità: ");
@@ -232,7 +230,7 @@ void updateDisplay() {
     display.println("oggetto");
   }
   
-  // Mostra stato Wi-Fi
+  // Stato Wi-Fi
   display.setTextSize(1);
   display.setCursor(100, 0);
   if(WiFi.status() == WL_CONNECTED) {
