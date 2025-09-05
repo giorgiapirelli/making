@@ -140,7 +140,7 @@ void DrawRadarGreenLine() {
 void DrawObjects() { // Disegna i punti rossi degli oggetti rilevati
   strokeWeight(8);            // Punti grandi per buona visibilità
   
-  // Itera all'inverso per poter rimuovere elementi durante il loop
+  // rimuovere elementi durante il loop
   for (int i = targets.size()-1; i >= 0; i--) {
     Target t = targets.get(i);
     
@@ -170,7 +170,6 @@ void DrawText() { // Disegna le informazioni testuali nella parte inferiore
   textSize(24);
   textAlign(LEFT);
   
-  // Formatta la distanza (sostituisce punto con virgola per convenzione italiana)
   String distanceText;
   if (iDistance == 0) {
     distanceText = "---";     // Nessuna lettura valida
