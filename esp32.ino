@@ -5,7 +5,7 @@
 #include <WiFiClientSecure.h>
 #include <UniversalTelegramBot.h>
 
-// Include le credenziali 
+// Includiamo le credenziali 
 #include "credentials.h"
 
 // Inizializzazione client Telegram
@@ -62,7 +62,7 @@ void setup() {
   display.display();
   Serial.println("Display OLED inizializzato");
   
-  // Connessione alla rete Wi-Fi, funzione sotto
+  // Connessione alla rete Wi-Fi
   connectToWiFi();
   
   // Configurazione client Telegram
@@ -217,7 +217,7 @@ void updateDisplay() {
     display.print(velocity, 2);
     display.print(" cm/s");
     
-    // Invia notifica Telegram
+    // Inviamo notifica Telegram
     sendTelegramNotification();
     
   } else {
