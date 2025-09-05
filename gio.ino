@@ -73,7 +73,7 @@ float getDistance() {
   digitalWrite(trigPin, LOW);
 
   long duration = pulseIn(echoPin, HIGH, 30000); // timeout 30ms
-  // Calcola la distanza in centimetri
+  // Calcoliamo la distanza in centimetri
   // Formula: distanza = (durata * velocità_suono) / 2
   // Velocità suono ≈ 343 m/s = 0.034 cm/microsec
   float distance = duration * 0.034 / 2;
@@ -97,8 +97,8 @@ void setNormalState() {
 
 // buzzer passivo PWM
 void playTonePWM(int frequency, int duration) { // frequenza in Hz, durata in ms, in questo caso si ha 2000 hz e 50 ms 
-  int period = 1000000 / frequency; // periodo in microsecondi
-  int pulse = period * 0.6; // durata impulso, 60% del periodo
+  int period = 1000000 / frequency; 
+  int pulse = period * 0.6; // durata impulso
   long cycles = (long)frequency * duration / 1000;
   for (long i = 0; i < cycles; i++) {
     digitalWrite(buzzer, HIGH);
